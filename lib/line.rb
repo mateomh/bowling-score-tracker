@@ -12,6 +12,18 @@ class Line
   end
 
   def check_line_score
+    total_score = 0 # initialize the total score
+    (0...10).each do |index| # iterates through the 10 trhows that you get
+      total_score += @line[index].frame_score # adds the frame score to the total score
+      if @line[index].tries.length == 1 # if the throw was a strike it adds the next 2 throws
+        total_score += @line[index + 1].frame_score
+        total_score += @line[index + 2].frame_score
+      elsif @line[index].tries.sum == 10 # if the throw was a spare it adds only the next pin score
+        p "spare"
+        total_score += @line[index + 1].tries[0]
+      end
+    end
+    total_score
   end
 
   def parse_line(full_line)
@@ -37,6 +49,9 @@ class Line
         add_frame(f) # adds the frame to the line object
       end
     end
-    add_frame(f) if try_count == 1 # If the last shoot was spare generates another frame
+    if try_count == 1
+      f.try_score(0) 
+      add_frame(f) # If the last shoot was spare generates another frame
+    end
   end
 end
