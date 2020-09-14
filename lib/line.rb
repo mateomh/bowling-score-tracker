@@ -19,7 +19,6 @@ class Line
         total_score += @line[index + 1].frame_score
         total_score += @line[index + 2].frame_score
       elsif @line[index].tries.sum == 10 # if the throw was a spare it adds only the next pin score
-        p "spare"
         total_score += @line[index + 1].tries[0]
       end
     end
