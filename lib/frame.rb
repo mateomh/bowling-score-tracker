@@ -8,4 +8,8 @@ class Frame
   def try_score(score)
     @tries.push(score)
   end
+
+  def frame_score
+    @tries.sum
+  end
 end
